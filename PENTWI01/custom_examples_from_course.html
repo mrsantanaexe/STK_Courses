@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <style>
+        div {
+            color: blue;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            //chaining example
+            $("#hellodiv").css("background-color", "red").css("color", "green");
+            //events example with console log output
+            $("#clear_clickable").bind("click", function(ev) {
+                $("#clickable").html("This div has clickable event");
+                console.log("clickable div has been cleared");
+            });
+            $("#clickable").bind("click", function(ev) {
+                $("<div>This is a click event for this page</div>").appendTo(this);
+                console.log("clickable div has been triggered");
+            });
+            $(".hide_effect").bind("click", function(ev) {
+                $(this).hide();
+                console.log("hiding message");
+            });
+            $(".fade_effect").bind("click", function(ev) {
+                $(this).fadeOut();
+                console.log("fading message");
+            });
+            $(".slide_effect").bind("click", function(ev) {
+                $(this).slideUp();
+                console.log("sliding message");
+            });
+            $("#show_hidden").bind("click", function(ev) {
+                $("[class$=_effect]").show();
+                console.log("showing message");
+            });
+            $(window).on('scroll', function(ev) {
+                console.log("yes, we know you are scrolling the window");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>These are samples from courses from MVA</h1>
+    <h3>Styles</h3>
+    <div id="hellodiv">This div has a chained jQuery to change the style</div>
+    <br/>
+    <h3>Events</h3>
+    <div id="clear_clickable">This clears the clickable messages</div>
+    <div id="clickable">This div has clickable event</div>
+    <br/>
+    <h3>Effects examples</h3>
+    <div id="show_hidden">This makes messages re-appear</div>
+    <div id="my_hidden" class="hide_effect">We have effects working! click me to hide</div>
+    <div id="my_hidden_fade" class="fade_effect">We have effects working! click me to hide and fade</div>
+    <div id="my_hidden_slide" class="slide_effect">We have effects working! click me to slide and fade</div>
+</body>
+</html>

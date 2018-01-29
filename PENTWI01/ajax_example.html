@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <style>
+        div {
+            color: blue;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            var convertTo = "MXN";
+            $("#click_change").bind("click", function(ev) {
+                $.ajax({
+                    url: "http://www.floatrates.com/daily/usd.xml",
+                    method: "GET",
+                    dataType: "xml",
+                    crossOrigin: false,
+                    success: function(xml){
+                        var readExchange = false;
+                        var conversion = "";
+                        $(xml).find("item").each(function(){
+                            $(this).find("targetCurrency").each(function(){
+                                if($(this).text() === convertTo) {
+                                    readExchange = true;
+                                }
+                            });
+                            if(readExchange) {
+                                $(this).find("exchangeRate").each(function(){
+                                    conversion = $(this).text();
+                                });
+                                readExchange = false;
+                            }
+                        });
+                        $("#click_change").html(conversion + " MXN");
+                    }
+                })
+                console.log("changed for ajax value");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>AJAX example</h1>
+    <div>
+    <table>
+        <tbody>
+            <tr>
+                <td>1 USD =</td>
+                <td><div id="click_change">click to view</div>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
